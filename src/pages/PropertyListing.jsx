@@ -214,95 +214,17 @@ const PropertyListing = () => {
                   to={`/property/${property.id}`}
                   key={property.id}
                   className="reveal"
-                  style={{
-                    textDecoration: "none",
-                    flex: "1 1 280px",
-                    maxWidth: filterOpen ? "calc(50% - 12px)" : "calc(33.333% - 16px)",
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    background: "#ffffff",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.04)",
-                    border: "1px solid var(--color-light-3)",
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-6px)";
-                    e.currentTarget.style.boxShadow = "0 20px 50px rgba(99,102,241,0.12)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.04)";
-                  }}
+                  style={{ textDecoration: "none", color: "inherit", display: "block", flex: "1 1 280px", maxWidth: filterOpen ? "calc(50% - 12px)" : "calc(33.333% - 16px)" }}
                 >
-                  {/* Image */}
-                  <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
-                    <img
-                      src={property.image}
-                      alt={property.title}
-                      style={{
-                        width: "100%", height: "100%", objectFit: "cover",
-                        transition: "transform 0.5s ease",
-                      }}
-                      onMouseEnter={(e) => (e.target.style.transform = "scale(1.06)")}
-                      onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
-                    />
-                    <div style={{
-                      position: "absolute", top: "14px", left: "14px",
-                      padding: "5px 14px", borderRadius: "9999px",
-                      background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                      color: "#fff", fontSize: "12px", fontWeight: "600",
-                    }}>
-                      {property.type}
-                    </div>
-                    <div style={{
-                      position: "absolute", top: "14px", right: "14px",
-                      width: "34px", height: "34px", borderRadius: "50%",
-                      background: "rgba(255,255,255,0.9)",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "#94a3b8", fontSize: "15px",
-                    }}>
-                      <FiHeart />
-                    </div>
+                  <div style={{ position: "relative", width: "100%", paddingBottom: "75%", overflow: "hidden", marginBottom: "20px" }}>
+                    <img src={property.image} alt={property.title} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s ease" }} onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"} />
                   </div>
-
-                  {/* Info */}
-                  <div style={{ padding: "18px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-light)", fontSize: "13px", marginBottom: "6px" }}>
-                      <FiMapPin style={{ color: "var(--color-primary)" }} />
-                      {property.location}
-                    </div>
-                    <h3 style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)", marginBottom: "12px" }}>
-                      {property.title}
-                    </h3>
-                    <div style={{ display: "flex", gap: "14px", paddingTop: "12px", borderTop: "1px solid var(--color-light-3)", marginBottom: "14px" }}>
-                      {property.bedrooms > 0 && (
-                        <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "13px", color: "var(--color-text-body)" }}>
-                          <IoBedOutline style={{ color: "var(--color-primary)" }} /> {property.bedrooms}
-                        </div>
-                      )}
-                      {property.bathrooms > 0 && (
-                        <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "13px", color: "var(--color-text-body)" }}>
-                          <LuBath style={{ color: "var(--color-primary)" }} /> {property.bathrooms}
-                        </div>
-                      )}
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "13px", color: "var(--color-text-body)" }}>
-                        <FiMaximize style={{ color: "var(--color-primary)" }} /> {property.area.toLocaleString()} sqft
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span style={{
-                        fontSize: "18px", fontWeight: "700",
-                        background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                      }}>
-                        ${property.price.toLocaleString()}
-                      </span>
-                      <span style={{ fontSize: "13px", color: "var(--color-primary)", fontWeight: "500", display: "flex", alignItems: "center", gap: "4px" }}>
-                        Details <FiArrowRight />
-                      </span>
-                    </div>
-                  </div>
+                  <h3 style={{ fontFamily: "var(--font-montserrat)", fontSize: "22px", fontWeight: "600", color: "#1a1a1a", marginBottom: "6px" }}>
+                    {property.title}
+                  </h3>
+                  <p style={{ fontSize: "13px", color: "#666666", textTransform: "uppercase", letterSpacing: "1px" }}>
+                    {property.location}
+                  </p>
                 </Link>
               ))}
             </div>

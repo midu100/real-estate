@@ -1,337 +1,73 @@
 import React from "react";
-import { Link } from "react-router";
-import { FiHome, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
-  const quickLinks = [
-    { label: "Home", path: "/" },
-    { label: "Properties", path: "/properties" },
-    { label: "Agents", path: "/agents" },
-    { label: "About Us", path: "/about" },
-    { label: "Contact", path: "/contact" },
-  ];
-
-  const propertyTypes = [
-    { label: "Apartments", path: "/properties" },
-    { label: "Villas", path: "/properties" },
-    { label: "Commercial", path: "/properties" },
-    { label: "Land", path: "/properties" },
-    { label: "New Projects", path: "/properties" },
-  ];
-
-  const socialLinks = [
-    { icon: <FaFacebookF />, href: "#" },
-    { icon: <FaTwitter />, href: "#" },
-    { icon: <FaInstagram />, href: "#" },
-    { icon: <FaLinkedinIn />, href: "#" },
-  ];
-
   return (
-    <footer
-      style={{
-        background: "linear-gradient(180deg, #0f172a 0%, #020617 100%)",
-        color: "rgba(248, 250, 252, 0.7)",
-        paddingTop: "80px",
-        paddingBottom: "0",
-      }}
-    >
-      <div className="container">
-        {/* Top Section */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "48px",
-            paddingBottom: "48px",
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
-          {/* Brand */}
-          <div style={{ flex: "1 1 280px", minWidth: "260px" }}>
-            <Link
-              to="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                textDecoration: "none",
-                marginBottom: "20px",
-              }}
-            >
-              <div
-                style={{
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "12px",
-                  background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              >
-                <FiHome />
-              </div>
-              <span
-                style={{
-                  fontSize: "22px",
-                  fontWeight: "700",
-                  fontFamily: "var(--font-playfair)",
-                  color: "#f8fafc",
-                }}
-              >
-                Luxe<span style={{ color: "#818cf8" }}>Estates</span>
-              </span>
-            </Link>
-            <p
-              style={{
-                fontSize: "14px",
-                lineHeight: "1.8",
-                color: "rgba(248, 250, 252, 0.5)",
-                maxWidth: "320px",
-                marginBottom: "24px",
-              }}
-            >
-              Discover exceptional properties with LuxeEstates. We connect
-              discerning buyers with premium real estate, delivering
-              unparalleled service and expertise.
-            </p>
-            <div style={{ display: "flex", gap: "12px" }}>
-              {socialLinks.map((s, i) => (
-                <a
-                  key={i}
-                  href={s.href}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "12px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "rgba(248,250,252,0.5)",
-                    fontSize: "15px",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "linear-gradient(135deg, #6366f1, #8b5cf6)";
-                    e.currentTarget.style.color = "#ffffff";
-                    e.currentTarget.style.borderColor = "transparent";
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      "rgba(255,255,255,0.05)";
-                    e.currentTarget.style.color = "rgba(248,250,252,0.5)";
-                    e.currentTarget.style.borderColor =
-                      "rgba(255,255,255,0.08)";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
-                  {s.icon}
-                </a>
-              ))}
+    <footer style={{ 
+      position: "relative",
+      backgroundColor: "#2c2c2c",
+      backgroundImage: `url('https://images.unsplash.com/photo-1541888087570-5b565a045952?w=1920&q=80')`, // Wood/architectural ceiling pattern
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundBlendMode: "multiply", // Darkens the image properly
+      color: "#ffffff",
+      padding: "80px 0 40px",
+      overflow: "hidden"
+    }}>
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "40px", marginBottom: "60px" }}>
+          
+          {/* Left Side Info */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            {/* Logo */}
+            <div style={{ fontSize: "36px", fontWeight: "800", fontFamily: "var(--font-montserrat)", lineHeight: "1" }}>
+              LUXE<br/>
+              <span style={{ fontSize: "16px", fontWeight: "400", letterSpacing: "3px" }}>REAL ESTATE</span>
+            </div>
+            
+            <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "12px", fontSize: "14px", fontWeight: "500", letterSpacing: "0.5px" }}>
+              <p>HOTLINE: 16760</p>
+              <p>EMAIL: hello@luxe.com</p>
+            </div>
+
+            {/* Social Icons */}
+            <div style={{ display: "flex", gap: "20px", marginTop: "30px" }}>
+              <a href="#" style={{ color: "#ffffff", fontSize: "18px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "#bbbbbb"} onMouseLeave={(e) => e.currentTarget.style.color = "#ffffff"}><FaFacebookF /></a>
+              <a href="#" style={{ color: "#ffffff", fontSize: "18px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "#bbbbbb"} onMouseLeave={(e) => e.currentTarget.style.color = "#ffffff"}><FaInstagram /></a>
+              <a href="#" style={{ color: "#ffffff", fontSize: "18px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "#bbbbbb"} onMouseLeave={(e) => e.currentTarget.style.color = "#ffffff"}><FaLinkedinIn /></a>
+              <a href="#" style={{ color: "#ffffff", fontSize: "18px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "#bbbbbb"} onMouseLeave={(e) => e.currentTarget.style.color = "#ffffff"}><FaYoutube /></a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div style={{ flex: "1 1 160px", minWidth: "150px" }}>
-            <h4
-              style={{
-                fontSize: "16px",
-                fontWeight: "600",
-                color: "#f8fafc",
-                marginBottom: "24px",
-              }}
-            >
-              Quick Links
-            </h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              {quickLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.path}
-                  style={{
-                    textDecoration: "none",
-                    color: "rgba(248,250,252,0.5)",
-                    fontSize: "14px",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = "#818cf8";
-                    e.target.style.paddingLeft = "6px";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "rgba(248,250,252,0.5)";
-                    e.target.style.paddingLeft = "0";
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Property Types */}
-          <div style={{ flex: "1 1 160px", minWidth: "150px" }}>
-            <h4
-              style={{
-                fontSize: "16px",
-                fontWeight: "600",
-                color: "#f8fafc",
-                marginBottom: "24px",
-              }}
-            >
-              Property Types
-            </h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-              }}
-            >
-              {propertyTypes.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.path}
-                  style={{
-                    textDecoration: "none",
-                    color: "rgba(248,250,252,0.5)",
-                    fontSize: "14px",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = "#818cf8";
-                    e.target.style.paddingLeft = "6px";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "rgba(248,250,252,0.5)";
-                    e.target.style.paddingLeft = "0";
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div style={{ flex: "1 1 240px", minWidth: "220px" }}>
-            <h4
-              style={{
-                fontSize: "16px",
-                fontWeight: "600",
-                color: "#f8fafc",
-                marginBottom: "24px",
-              }}
-            >
-              Contact Info
-            </h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-              }}
-            >
-              {[
-                {
-                  icon: <FiMapPin />,
-                  text: "123 Luxury Avenue, Manhattan, NY 10001",
-                },
-                { icon: <FiPhone />, text: "+1 (555) 123-4567" },
-                { icon: <FiMail />, text: "info@luxeestates.com" },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "12px",
-                  }}
-                >
-                  <span
-                    style={{
-                      color: "#818cf8",
-                      fontSize: "16px",
-                      marginTop: "2px",
-                    }}
-                  >
-                    {item.icon}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "rgba(248,250,252,0.5)",
-                      lineHeight: "1.6",
-                    }}
-                  >
-                    {item.text}
-                  </span>
-                </div>
-              ))}
+          {/* Right Side Member Badge */}
+          <div>
+            <div style={{ background: "#4a76a8", color: "#ffffff", display: "inline-flex", flexDirection: "column", alignItems: "center", fontWeight: "800", fontSize: "18px", letterSpacing: "1px", border: "1px solid #ffffff" }}>
+              <span style={{ background: "#333333", color: "#ffffff", padding: "4px 12px", width: "100%", textAlign: "center", fontSize: "12px" }}>MEMBER</span>
+              <span style={{ padding: "4px 12px" }}>REHAB</span>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "24px 0",
-            gap: "16px",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "13px",
-              color: "rgba(248,250,252,0.3)",
-            }}
-          >
-            © 2026 LuxeEstates. All rights reserved.
-          </p>
-          <div style={{ display: "flex", gap: "24px" }}>
-            {["Privacy Policy", "Terms of Service", "Cookies"].map((t) => (
-              <a
-                key={t}
-                href="#"
-                style={{
-                  fontSize: "13px",
-                  color: "rgba(248,250,252,0.3)",
-                  textDecoration: "none",
-                  transition: "color 0.3s ease",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = "#818cf8")}
-                onMouseLeave={(e) =>
-                  (e.target.style.color = "rgba(248,250,252,0.3)")
-                }
-              >
-                {t}
-              </a>
-            ))}
-          </div>
+        {/* Divider Line */}
+        <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.2)", marginBottom: "30px" }}></div>
+
+        {/* Copyright */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "13px", color: "#ffffff", fontWeight: "500" }}>
+          <p>© 2026 Luxe Real Estate. All Rights Reserved. Designed & Developed by Kazi Mridul</p>
         </div>
       </div>
+
+      {/* Floating WhatsApp Button */}
+      <a href="https://wa.me/1234567890" target="_blank" rel="noreferrer" style={{
+        position: "fixed", bottom: "40px", right: "40px",
+        width: "56px", height: "56px", borderRadius: "50%",
+        backgroundColor: "#25D366", color: "#ffffff",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontSize: "32px", boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+        zIndex: 1000, textDecoration: "none", transition: "transform 0.3s ease"
+      }} onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
+        <FaWhatsapp />
+      </a>
     </footer>
   );
 };

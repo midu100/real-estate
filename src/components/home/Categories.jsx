@@ -1,145 +1,77 @@
-import React from "react";
-import { FiHome, FiBriefcase, FiMap } from "react-icons/fi";
-import { BsBuildings } from "react-icons/bs";
+import React, { useState } from "react";
+import { Link } from "react-router";
+import { properties } from "../../data/data";
+import { FiArrowRight } from "react-icons/fi";
 
 const Categories = () => {
-  const cats = [
-    {
-      name: "Apartment",
-      icon: <BsBuildings />,
-      count: 120,
-      color: "#6366f1",
-    },
-    {
-      name: "Villa",
-      icon: <FiHome />,
-      count: 85,
-      color: "#8b5cf6",
-    },
-    {
-      name: "Commercial",
-      icon: <FiBriefcase />,
-      count: 45,
-      color: "#a78bfa",
-    },
-    {
-      name: "Land",
-      icon: <FiMap />,
-      count: 30,
-      color: "#c4b5fd",
-    },
-  ];
+  const [activeTab, setActiveTab] = useState("Ongoing");
+
+  const tabs = ["Ongoing", "Upcoming", "Handed Over", "Ready"];
+  
+  // Mock logic to filter based on tabs
+  const getFiltered = () => {
+    if (activeTab === "Ongoing") return properties.slice(0, 3);
+    if (activeTab === "Upcoming") return properties.slice(3, 6);
+    if (activeTab === "Handed Over") return properties.slice(1, 4);
+    if (activeTab === "Ready") return properties.slice(2, 5);
+    return properties.slice(0, 3);
+  };
+
+  const filteredProps = getFiltered();
 
   return (
-    <section
-      style={{
-        padding: "100px 0",
-        background: "var(--color-light-2)",
-      }}
-    >
+    <section style={{ padding: "120px 0", background: "#f8f9fa" }}>
       <div className="container">
-        {/* Header */}
-        <div className="reveal" style={{ textAlign: "center", marginBottom: "60px" }}>
-          <span
-            style={{
-              fontSize: "14px",
-              fontWeight: "600",
-              color: "var(--color-primary)",
-              textTransform: "uppercase",
-              letterSpacing: "3px",
-            }}
-          >
-            Browse By
-          </span>
-          <h2
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(28px, 4vw, 42px)",
-              fontWeight: "700",
-              color: "var(--color-text-dark)",
-              marginTop: "12px",
-            }}
-          >
-            Property Categories
+        <div className="reveal" style={{ textAlign: "center", marginBottom: "48px" }}>
+          <h2 style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px, 4vw, 48px)", fontWeight: "700", color: "#1a1a1a" }}>
+            Explore Projects
           </h2>
         </div>
 
-        {/* Cards */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "24px",
-            justifyContent: "center",
-          }}
-        >
-          {cats.map((cat, i) => (
-            <div
-              key={cat.name}
-              className="reveal"
+        <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: "32px", marginBottom: "60px", flexWrap: "wrap" }}>
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
               style={{
-                flex: "1 1 220px",
-                maxWidth: "280px",
-                padding: "40px 28px",
-                borderRadius: "24px",
-                background: "#ffffff",
-                border: "1px solid var(--color-light-3)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
+                background: "none",
+                border: "none",
+                fontSize: "15px",
+                fontWeight: activeTab === tab ? "600" : "400",
+                color: activeTab === tab ? "var(--color-primary)" : "#666666",
                 cursor: "pointer",
-                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                animationDelay: `${i * 0.1}s`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-6px) rotate(2deg)";
-                e.currentTarget.style.boxShadow = `0 20px 50px ${cat.color}25`;
-                e.currentTarget.style.borderColor = cat.color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0) rotate(0deg)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = "var(--color-light-3)";
+                paddingBottom: "8px",
+                borderBottom: activeTab === tab ? "2px solid var(--color-primary)" : "2px solid transparent",
+                transition: "all 0.3s ease",
+                textTransform: "uppercase",
+                letterSpacing: "1px"
               }}
             >
-              <div
-                style={{
-                  width: "72px",
-                  height: "72px",
-                  borderRadius: "20px",
-                  background: `${cat.color}12`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "28px",
-                  color: cat.color,
-                  marginBottom: "20px",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {cat.icon}
-              </div>
-              <h3
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  color: "var(--color-text-dark)",
-                  marginBottom: "8px",
-                }}
-              >
-                {cat.name}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "var(--color-text-light)",
-                }}
-              >
-                {cat.count} Properties
-              </p>
-            </div>
+              {tab}
+            </button>
           ))}
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
+          {filteredProps.map((property, i) => (
+            <Link to={`/property/${property.id}`} key={property.id} className="reveal" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+              <div style={{ position: "relative", width: "100%", paddingBottom: "75%", overflow: "hidden", marginBottom: "20px" }}>
+                <img src={property.image} alt={property.title} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s ease" }} onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"} />
+              </div>
+              <h3 style={{ fontFamily: "var(--font-playfair)", fontSize: "22px", fontWeight: "600", color: "#1a1a1a", marginBottom: "6px" }}>
+                {property.title}
+              </h3>
+              <p style={{ fontSize: "13px", color: "#666666", textTransform: "uppercase", letterSpacing: "1px" }}>
+                {property.location}
+              </p>
+            </Link>
+          ))}
+        </div>
+        
+        <div className="reveal" style={{ textAlign: "center", marginTop: "60px" }}>
+           <Link to="/properties" style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: "600", color: "#1a1a1a", textDecoration: "none", borderBottom: "1px solid #1a1a1a", paddingBottom: "4px", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "#1a1a1a"}>
+              View All Projects <FiArrowRight />
+            </Link>
         </div>
       </div>
     </section>

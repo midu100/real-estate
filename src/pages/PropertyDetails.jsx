@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import {
-  FiMapPin, FiMaximize, FiHeart, FiShare2, FiCheck,
-  FiPhone, FiMail, FiArrowLeft,
-} from "react-icons/fi";
-import { IoBedOutline } from "react-icons/io5";
-import { LuBath } from "react-icons/lu";
 import { properties } from "../data/data";
-import useScrollReveal from "../hooks/useScrollReveal";
 
 const PropertyDetails = () => {
-  useScrollReveal();
   const { id } = useParams();
   const property = properties.find((p) => p.id === parseInt(id));
 
-  const [activeImg, setActiveImg] = useState(0);
-
+  // Enable smooth scrolling for this page
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = "auto";
+    };
+  }, []);
 
   if (!property) {
     return (
       <section style={{ paddingTop: "140px", textAlign: "center", minHeight: "60vh" }}>
-        <h2 style={{ fontFamily: "var(--font-playfair)", fontSize: "32px", color: "var(--color-text-dark)" }}>
+        <h2 style={{ fontFamily: "var(--font-montserrat)", fontSize: "32px", color: "#1a1a1a" }}>
           Property not found
         </h2>
         <Link to="/properties" style={{ color: "var(--color-primary)", marginTop: "16px", display: "inline-block" }}>
@@ -39,381 +28,174 @@ const PropertyDetails = () => {
   }
 
   return (
-    <section style={{ paddingTop: "100px", paddingBottom: "80px", background: "var(--color-light)" }}>
-      <div className="container">
-        {/* Back Button */}
-        <Link
-          to="/properties"
-          className="reveal"
-          style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            fontSize: "14px", color: "var(--color-text-body)", textDecoration: "none",
-            marginBottom: "24px", transition: "color 0.3s ease",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-primary)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-body)")}
-        >
-          <FiArrowLeft /> Back to Properties
-        </Link>
+    <>
+      {/* Sticky Internal Navigation */}
+      <div style={{ position: "sticky", top: "70px", zIndex: 100, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(10px)", borderBottom: "1px solid #eeeeee", padding: "15px 0", transition: "all 0.3s ease" }}>
+        <div className="container" style={{ display: "flex", gap: "24px", overflowX: "auto", whiteSpace: "nowrap", scrollbarWidth: "none" }}>
+          <Link to="/properties" style={{ color: "var(--color-primary)", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", marginRight: "auto" }}>← Back</Link>
+          <a href="#project" style={{ color: "#333333", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.target.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.target.style.color = "#333333"}>The Project</a>
+          <a href="#specifications" style={{ color: "#333333", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.target.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.target.style.color = "#333333"}>Specification</a>
+          <a href="#amenities" style={{ color: "#333333", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.target.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.target.style.color = "#333333"}>Amenities</a>
+          <a href="#location" style={{ color: "#333333", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.target.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.target.style.color = "#333333"}>Location</a>
+          <a href="#contact" style={{ color: "#333333", textDecoration: "none", fontSize: "13px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", transition: "color 0.3s ease" }} onMouseEnter={(e) => e.target.style.color = "var(--color-primary)"} onMouseLeave={(e) => e.target.style.color = "#333333"}>Contact</a>
+        </div>
+      </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "36px" }}>
-          {/* Left: Images & Details */}
-          <div style={{ flex: "1 1 580px" }}>
-            {/* Image Gallery */}
-            <div className="reveal" style={{ borderRadius: "24px", overflow: "hidden", marginBottom: "28px" }}>
-              <Swiper
-                modules={[Navigation, Pagination]}
-                navigation
-                pagination={{ clickable: true }}
-                onSlideChange={(s) => setActiveImg(s.activeIndex)}
-                style={{ borderRadius: "24px" }}
-              >
-                {property.images.map((img, i) => (
-                  <SwiperSlide key={i}>
-                    <div style={{ position: "relative", height: "420px", overflow: "hidden" }}>
-                      <img
-                        src={img}
-                        alt={`${property.title} ${i + 1}`}
-                        style={{
-                          width: "100%", height: "100%", objectFit: "cover",
-                          transition: "transform 0.5s ease",
-                        }}
-                        onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
-                        onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+      {/* Hero Section */}
+      <section style={{ height: "90vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+          <img src={property.images[0] || property.image} alt={property.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)" }}></div>
+        </div>
+        <h1 className="reveal" style={{ fontFamily: "var(--font-montserrat)", fontSize: "clamp(48px, 8vw, 120px)", fontWeight: "800", color: "#ffffff", textTransform: "uppercase", letterSpacing: "8px", textAlign: "center" }}>
+          {property.title}
+        </h1>
+        <div style={{ position: "absolute", bottom: "40px", left: "50%", transform: "translateX(-50%)", color: "#ffffff", textAlign: "center", animation: "bounce 2s infinite" }}>
+          <p style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "2px", marginBottom: "8px" }}>Scroll Down</p>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </div>
+      </section>
+
+      {/* Project Overview */}
+      <section id="project" style={{ padding: "120px 0", background: "#ffffff" }}>
+        <div className="container reveal" style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+          <h2 style={{ fontSize: "clamp(28px, 4vw, 42px)", fontWeight: "700", color: "#1a1a1a", marginBottom: "32px", lineHeight: "1.3" }}>
+            Welcome to {property.title.toUpperCase()}, an exclusive residential masterpiece redefining luxury living in {property.location}.
+          </h2>
+          <p style={{ fontSize: "16px", color: "#666666", lineHeight: "1.9" }}>
+            {property.description}
+          </p>
+        </div>
+      </section>
+
+      {/* Full Width Image Breaker */}
+      <section style={{ height: "60vh", width: "100%" }}>
+        <img src={property.images[1] || property.image} alt="Architecture" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </section>
+
+      {/* Specifications */}
+      <section id="specifications" style={{ padding: "120px 0", background: "#f9f9f9" }}>
+        <div className="container">
+          <h2 className="reveal" style={{ fontSize: "32px", fontWeight: "700", color: "#1a1a1a", marginBottom: "60px", textTransform: "capitalize" }}>Specification</h2>
+          <div className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "40px" }}>
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Location</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>{property.location}</p>
             </div>
-
-            {/* Thumbnails */}
-            <div className="reveal" style={{ display: "flex", gap: "12px", marginBottom: "36px", flexWrap: "wrap" }}>
-              {property.images.map((img, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: "80px", height: "60px", borderRadius: "12px", overflow: "hidden",
-                    border: activeImg === i ? "2px solid var(--color-primary)" : "2px solid transparent",
-                    opacity: activeImg === i ? 1 : 0.6, cursor: "pointer",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                </div>
-              ))}
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Property Type</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>{property.type}</p>
             </div>
-
-            {/* Title & Price Row */}
-            <div className="reveal" style={{ marginBottom: "28px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px" }}>
-                <div>
-                  <div style={{
-                    display: "inline-block", padding: "5px 14px", borderRadius: "9999px",
-                    background: "linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1))",
-                    color: "var(--color-primary)", fontSize: "13px", fontWeight: "600", marginBottom: "12px",
-                  }}>
-                    {property.type}
-                  </div>
-                  <h1 style={{
-                    fontFamily: "var(--font-playfair)", fontSize: "clamp(24px, 3vw, 36px)",
-                    fontWeight: "700", color: "var(--color-text-dark)", marginBottom: "8px",
-                  }}>
-                    {property.title}
-                  </h1>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--color-text-light)", fontSize: "15px" }}>
-                    <FiMapPin style={{ color: "var(--color-primary)" }} /> {property.location}
-                  </div>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{
-                    fontSize: "clamp(24px, 3vw, 34px)", fontWeight: "700",
-                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  }}>
-                    ${property.price.toLocaleString()}
-                  </div>
-                  <div style={{ display: "flex", gap: "10px", marginTop: "12px" }}>
-                    <button style={{
-                      width: "42px", height: "42px", borderRadius: "12px",
-                      background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "var(--color-text-light)", fontSize: "18px", cursor: "pointer",
-                      transition: "all 0.3s ease",
-                    }}>
-                      <FiHeart />
-                    </button>
-                    <button style={{
-                      width: "42px", height: "42px", borderRadius: "12px",
-                      background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "var(--color-text-light)", fontSize: "18px", cursor: "pointer",
-                      transition: "all 0.3s ease",
-                    }}>
-                      <FiShare2 />
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Apartment Size</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>{property.area.toLocaleString()} sqft</p>
             </div>
-
-            {/* Stats Bar */}
-            <div className="reveal" style={{
-              display: "flex", flexWrap: "wrap", gap: "20px", padding: "20px 28px",
-              borderRadius: "20px", background: "#ffffff", border: "1px solid var(--color-light-3)",
-              marginBottom: "36px",
-            }}>
-              {property.bedrooms > 0 && (
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div style={{
-                    width: "44px", height: "44px", borderRadius: "12px",
-                    background: "linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1))",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--color-primary)", fontSize: "18px",
-                  }}>
-                    <IoBedOutline />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)" }}>{property.bedrooms}</div>
-                    <div style={{ fontSize: "12px", color: "var(--color-text-light)" }}>Bedrooms</div>
-                  </div>
-                </div>
-              )}
-              {property.bathrooms > 0 && (
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <div style={{
-                    width: "44px", height: "44px", borderRadius: "12px",
-                    background: "linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1))",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--color-primary)", fontSize: "18px",
-                  }}>
-                    <LuBath />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)" }}>{property.bathrooms}</div>
-                    <div style={{ fontSize: "12px", color: "var(--color-text-light)" }}>Bathrooms</div>
-                  </div>
-                </div>
-              )}
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div style={{
-                  width: "44px", height: "44px", borderRadius: "12px",
-                  background: "linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1))",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "var(--color-primary)", fontSize: "18px",
-                }}>
-                  <FiMaximize />
-                </div>
-                <div>
-                  <div style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)" }}>{property.area.toLocaleString()}</div>
-                  <div style={{ fontSize: "12px", color: "var(--color-text-light)" }}>Sq Ft</div>
-                </div>
-              </div>
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Bedrooms</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>{property.bedrooms || "N/A"}</p>
             </div>
-
-            {/* Description */}
-            <div className="reveal" style={{ marginBottom: "36px" }}>
-              <h3 style={{ fontSize: "20px", fontWeight: "600", color: "var(--color-text-dark)", marginBottom: "16px" }}>
-                Description
-              </h3>
-              <p style={{ fontSize: "15px", color: "var(--color-text-body)", lineHeight: "1.9" }}>
-                {property.description}
-              </p>
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Bathrooms</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>{property.bathrooms || "N/A"}</p>
             </div>
-
-            {/* Amenities */}
-            <div className="reveal" style={{ marginBottom: "36px" }}>
-              <h3 style={{ fontSize: "20px", fontWeight: "600", color: "var(--color-text-dark)", marginBottom: "16px" }}>
-                Amenities
-              </h3>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
-                {property.amenities.map((a, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex", alignItems: "center", gap: "8px",
-                      padding: "10px 18px", borderRadius: "12px",
-                      background: "#ffffff", border: "1px solid var(--color-light-3)",
-                      fontSize: "14px", color: "var(--color-text-body)",
-                    }}
-                  >
-                    <FiCheck style={{ color: "var(--color-primary)" }} />
-                    {a}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Map Placeholder */}
-            <div className="reveal" style={{ marginBottom: "36px" }}>
-              <h3 style={{ fontSize: "20px", fontWeight: "600", color: "var(--color-text-dark)", marginBottom: "16px" }}>
-                Location
-              </h3>
-              <div style={{
-                borderRadius: "20px", overflow: "hidden", height: "300px",
-                background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-              }}>
-                <iframe
-                  title="Property Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596698663!2d-74.25987368715491!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1681234567890"
-                  width="100%"
-                  height="100%"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  loading="lazy"
-                />
-              </div>
+            <div style={{ borderBottom: "1px solid #dddddd", paddingBottom: "16px" }}>
+              <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>Starting Price</p>
+              <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "600" }}>${property.price.toLocaleString()}</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Right: Agent Card (Sticky) */}
-          <div style={{ flex: "0 0 340px", maxWidth: "340px" }}>
-            <div
-              className="reveal-right"
-              style={{
-                position: "sticky", top: "100px",
-                padding: "32px", borderRadius: "24px",
-                background: "#ffffff", border: "1px solid var(--color-light-3)",
-                boxShadow: "0 8px 30px rgba(0,0,0,0.06)",
-              }}
-            >
-              {/* Agent Info */}
-              <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "24px" }}>
-                <img
-                  src={property.agent.image}
-                  alt={property.agent.name}
-                  style={{
-                    width: "56px", height: "56px", borderRadius: "16px", objectFit: "cover",
-                  }}
-                />
-                <div>
-                  <h4 style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)" }}>
-                    {property.agent.name}
-                  </h4>
-                  <p style={{ fontSize: "13px", color: "var(--color-text-light)" }}>
-                    Listed Agent
-                  </p>
-                </div>
+      {/* Amenities */}
+      <section id="amenities" style={{ padding: "120px 0", background: "#ffffff" }}>
+        <div className="container">
+          <div className="reveal" style={{ maxWidth: "600px", marginBottom: "60px" }}>
+            <h2 style={{ fontSize: "32px", fontWeight: "700", color: "#1a1a1a", marginBottom: "16px" }}>Luxury apartments with state-of-the-art amenities</h2>
+            <p style={{ fontSize: "12px", letterSpacing: "2px", color: "#888888", textTransform: "uppercase", fontWeight: "600" }}>Amenities</p>
+          </div>
+          <div className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "30px" }}>
+            {property.amenities.map((a, i) => (
+              <div key={i} style={{ padding: "24px", background: "#f8f9fa", borderLeft: "4px solid var(--color-primary)", display: "flex", alignItems: "center", minHeight: "80px" }}>
+                <h4 style={{ fontSize: "16px", fontWeight: "600", color: "#333333", textTransform: "capitalize" }}>{a}</h4>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              {/* Agent Contacts */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "28px" }}>
-                <a href={`tel:${property.agent.phone}`} style={{
-                  display: "flex", alignItems: "center", gap: "10px",
-                  padding: "12px 16px", borderRadius: "14px",
-                  background: "var(--color-light-2)", textDecoration: "none",
-                  color: "var(--color-text-body)", fontSize: "14px", transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08))";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "var(--color-light-2)";
-                }}
-                >
-                  <FiPhone style={{ color: "var(--color-primary)" }} /> {property.agent.phone}
-                </a>
-                <a href={`mailto:${property.agent.email}`} style={{
-                  display: "flex", alignItems: "center", gap: "10px",
-                  padding: "12px 16px", borderRadius: "14px",
-                  background: "var(--color-light-2)", textDecoration: "none",
-                  color: "var(--color-text-body)", fontSize: "14px", transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08))";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "var(--color-light-2)";
-                }}
-                >
-                  <FiMail style={{ color: "var(--color-primary)" }} /> {property.agent.email}
-                </a>
+      {/* Image Gallery */}
+      <section style={{ padding: "0 0 120px 0", background: "#ffffff" }}>
+        <div className="container reveal" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "24px" }}>
+          {property.images.slice(0, 2).map((img, i) => (
+            <div key={i} style={{ height: "400px" }}>
+              <img src={img} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Location */}
+      <section id="location" style={{ padding: "120px 0", background: "#f9f9f9" }}>
+        <div className="container">
+          <div className="reveal" style={{ marginBottom: "40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
+            <div>
+              <h2 style={{ fontSize: "32px", fontWeight: "700", color: "#1a1a1a", marginBottom: "8px" }}>Location</h2>
+              <p style={{ fontSize: "18px", color: "#666666" }}>{property.location}</p>
+            </div>
+            <a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ fontSize: "14px", fontWeight: "600", color: "#1a1a1a", textDecoration: "none", borderBottom: "1px solid #1a1a1a", paddingBottom: "4px", textTransform: "uppercase", letterSpacing: "1px" }}>SEE ON MAP</a>
+          </div>
+          <div className="reveal" style={{ width: "100%", height: "500px" }}>
+            <iframe
+              title="Property Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596698663!2d-74.25987368715491!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1681234567890"
+              width="100%"
+              height="100%"
+              style={{ border: "none" }}
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Contact / Request Call Back */}
+      <section id="contact" style={{ padding: "120px 0", background: "#ffffff" }}>
+        <div className="container">
+          <div className="reveal" style={{ display: "flex", flexWrap: "wrap", gap: "60px", background: "#f8f9fa", padding: "60px", border: "1px solid #eeeeee" }}>
+            <div style={{ flex: "1 1 400px" }}>
+              <h2 style={{ fontSize: "36px", fontWeight: "700", color: "#1a1a1a", marginBottom: "24px", lineHeight: "1.2" }}>Let us guide you to the extraordinary.</h2>
+              <p style={{ fontSize: "14px", color: "#666666", lineHeight: "1.8", marginBottom: "40px" }}>
+                By submitting your request, you agree to our privacy policy. Rest assured, your personal information will be kept safe and secure.
+              </p>
+              <div>
+                <p style={{ fontSize: "12px", color: "#888888", textTransform: "uppercase", letterSpacing: "2px", marginBottom: "8px", fontWeight: "600" }}>Contact</p>
+                <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "500", marginBottom: "8px" }}>{property.location}</p>
+                <p style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: "500" }}>{property.agent.phone}</p>
               </div>
-
-              {/* Contact Form */}
-              <h4 style={{ fontSize: "16px", fontWeight: "600", color: "var(--color-text-dark)", marginBottom: "16px" }}>
-                Send a Message
-              </h4>
-              <form style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  style={{
-                    padding: "12px 16px", borderRadius: "14px",
-                    background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-                    fontSize: "14px", outline: "none", color: "var(--color-text-dark)",
-                    fontFamily: "var(--font-inter)", transition: "border-color 0.3s ease",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "var(--color-primary)")}
-                  onBlur={(e) => (e.target.style.borderColor = "var(--color-light-3)")}
-                />
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  style={{
-                    padding: "12px 16px", borderRadius: "14px",
-                    background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-                    fontSize: "14px", outline: "none", color: "var(--color-text-dark)",
-                    fontFamily: "var(--font-inter)", transition: "border-color 0.3s ease",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "var(--color-primary)")}
-                  onBlur={(e) => (e.target.style.borderColor = "var(--color-light-3)")}
-                />
-                <textarea
-                  rows="4"
-                  placeholder="I'm interested in this property..."
-                  style={{
-                    padding: "12px 16px", borderRadius: "14px",
-                    background: "var(--color-light-2)", border: "1px solid var(--color-light-3)",
-                    fontSize: "14px", outline: "none", color: "var(--color-text-dark)",
-                    fontFamily: "var(--font-inter)", resize: "vertical",
-                    transition: "border-color 0.3s ease",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "var(--color-primary)")}
-                  onBlur={(e) => (e.target.style.borderColor = "var(--color-light-3)")}
-                />
-                <button
-                  type="submit"
-                  style={{
-                    padding: "14px",
-                    borderRadius: "14px",
-                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                    color: "#ffffff",
-                    fontSize: "15px",
-                    fontWeight: "600",
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 4px 15px rgba(99,102,241,0.3)",
-                    fontFamily: "var(--font-inter)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = "translateY(-2px)";
-                    e.target.style.boxShadow = "0 8px 25px rgba(99,102,241,0.5)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = "translateY(0)";
-                    e.target.style.boxShadow = "0 4px 15px rgba(99,102,241,0.3)";
-                  }}
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Send Message
+            </div>
+            <div style={{ flex: "1 1 400px" }}>
+              <h3 style={{ fontSize: "20px", fontWeight: "700", color: "#1a1a1a", marginBottom: "24px", textTransform: "uppercase", letterSpacing: "1px" }}>Request Call Back</h3>
+              <form style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                <input type="text" placeholder="Full Name*" style={{ padding: "16px", border: "1px solid #dddddd", fontSize: "14px", outline: "none", fontFamily: "inherit" }} />
+                <input type="tel" placeholder="Phone Number*" style={{ padding: "16px", border: "1px solid #dddddd", fontSize: "14px", outline: "none", fontFamily: "inherit" }} />
+                <input type="email" placeholder="Email Address" style={{ padding: "16px", border: "1px solid #dddddd", fontSize: "14px", outline: "none", fontFamily: "inherit" }} />
+                <button type="submit" onClick={(e) => e.preventDefault()} style={{ alignSelf: "flex-start", marginTop: "10px", padding: "16px 40px", background: "#1a1a1a", color: "#ffffff", border: "none", fontSize: "14px", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px", cursor: "pointer", transition: "background 0.3s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "var(--color-primary)"} onMouseLeave={(e) => e.currentTarget.style.background = "#1a1a1a"}>
+                  Submit
                 </button>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <style>{`
-        @media (max-width: 900px) {
-          .container > div > div:last-child {
-            flex: 1 1 100% !important;
-            max-width: 100% !important;
-          }
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+          40% { transform: translateY(-20px) translateX(-50%); }
+          60% { transform: translateY(-10px) translateX(-50%); }
         }
       `}</style>
-    </section>
+    </>
   );
 };
 

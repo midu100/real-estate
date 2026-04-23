@@ -2,8 +2,8 @@
 
 /* ===== CUSTOM THEME ===== */
 @theme {
-  --font-inter: "Inter", sans-serif;
-  --font-playfair: "Playfair Display", serif;
+  --font-inter: "Montserrat", sans-serif;
+  --font-playfair: "Montserrat", sans-serif;
 
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
