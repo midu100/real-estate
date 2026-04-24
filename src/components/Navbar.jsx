@@ -56,7 +56,7 @@ const Navbar = () => {
       >
         {/* Logo */}
         <Link to="/" style={{ textDecoration: "none", color: "#ffffff", display: "flex", flexDirection: "column", lineHeight: "1" }}>
-          <span style={{ fontSize: "28px", fontWeight: "800", fontFamily: "var(--font-montserrat)", letterSpacing: "1px" }}>LUXE</span>
+          <span style={{ fontSize: "28px", fontWeight: "800", fontFamily: "var(--font-montserrat)", letterSpacing: "1px" }}>Brickon LTD</span>
           <span style={{ fontSize: "11px", fontWeight: "400", letterSpacing: "2.5px" }}>REAL ESTATE</span>
         </Link>
 

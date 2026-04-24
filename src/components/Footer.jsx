@@ -21,13 +21,13 @@ const Footer = () => {
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             {/* Logo */}
             <div style={{ fontSize: "36px", fontWeight: "800", fontFamily: "var(--font-montserrat)", lineHeight: "1" }}>
-              LUXE<br/>
+                BRICKON LTD<br/>
               <span style={{ fontSize: "16px", fontWeight: "400", letterSpacing: "3px" }}>REAL ESTATE</span>
             </div>
             
             <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "12px", fontSize: "14px", fontWeight: "500", letterSpacing: "0.5px" }}>
               <p>HOTLINE: 16760</p>
-              <p>EMAIL: hello@luxe.com</p>
+              <p>EMAIL: info@brickonltd.com.com</p>
             </div>
 
             {/* Social Icons */}
