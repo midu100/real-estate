@@ -73,7 +73,7 @@ const About = () => {
             <p style={{
               fontSize: "16px", color: "var(--color-text-body)", lineHeight: "1.9", marginBottom: "20px",
             }}>
-              Founded in 2010, LuxeEstates has been at the forefront of luxury real estate,
+              Founded in 2010, Brickon Ltd has been at the forefront of luxury real estate,
               connecting discerning buyers with exceptional properties. Our passion for
               excellence and deep market knowledge have established us as the premier
               destination for premium real estate.

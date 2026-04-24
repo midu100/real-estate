@@ -53,7 +53,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "13px", color: "#ffffff", fontWeight: "500" }}>
-          <p>© 2026 Luxe Real Estate. All Rights Reserved. Designed & Developed by Kazi Mridul</p>
+          <p>© 2026 Brickon Ltd Real Estate. All Rights Reserved. Designed & Developed by Kazi Mridul</p>
         </div>
       </div>
 
